@@ -1,1 +1,45 @@
 Regla falsa
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de Regla Falsa</title>
+</head>
+
+
+ <body>
+    <h1>Regla Falsa</h1>
+    <form method="post">
+        {% csrf_token %}
+        Función: <input type="text" name="funcion" required><br>
+        Extremo a: <input type="number" name="a" step="any" required><br>
+        Extremo b: <input type="number" name="b" step="any" required><br>
+        Tolerancia: <input type="number" name="tol" step="any" required><br>
+        Máx. Iteraciones: <input type="number" name="max_iter" required><br>
+        <input type="submit" value="Calcular">
+    </form>
+</body>
+
+<body>
+    {% if tabla %}
+    <h1>Resultado de Regla Falsa</h1>
+    <table border="1">
+        <tr>
+            <th>n</th>
+            <th>xn</th>
+            <th>f(xn)</th>
+            <th>E</th>
+        </tr>
+        {% for fila in tabla %}
+        <tr>
+            {% for dato in fila %}
+            <td>{{ dato }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
