@@ -1,6 +1,10 @@
 from django.shortcuts import render
 import sympy as sp
 from sympy import sin, cos, log
+import matplotlib.pyplot as plt
+import numpy as np
+import tempfile
+import os
 
 # Create your views here.
 
@@ -13,20 +17,32 @@ def biseccion_view(request):
 def regla_falsa(f, a, b, Tol, maxIter):
     # Inicializar variables
     n = 0
-    function=sp.sympify(f)
     sym_x=sp.symbols('x')
-    function = function.subs({'sin': sin, 'cos': cos, 'log': log})
-    fa = function.subs(sym_x,a)
-    fb = function.subs(sym_x,b)
+    f = f.subs({'sin': sin, 'cos': cos, 'log': log})
+    fa = f.subs(sym_x,a)
+    fb = f.subs(sym_x,b)
     E = abs(b - a)
     tabla = [[n, a, fa, E]]
+
+    x_values = np.linspace(a, b, 1000)
+    y_values = [f.subs(sym_x, x_val) for x_val in x_values]
+    plt.plot(x_values, y_values, label='f(x)')
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
+    plt.title('Gráfico de la función')
+    plt.grid(True)
+    plt.legend() 
+    _, plot_path = tempfile.mkstemp('.png')
+    plt.savefig(plot_path)
+    plt.close()
+
     print('%-3s %-20s %-20s %-20s' % ('n', 'xn', 'f(xn)', 'E'))
     print('%-3d %-20.13f %-20.13f %-20.13f' % tuple(tabla[0]))
     
     while E > Tol and n < maxIter and fa != 0 and fb != 0:
         # Calcular nuevo punto
         xn = a - fa*(b - a)/(fb - fa)
-        fxn = function.subs(sym_x,xn)
+        fxn = f.subs(sym_x,xn)
         
         # Actualizar intervalo
         if fa * fxn < 0:
@@ -44,8 +60,7 @@ def regla_falsa(f, a, b, Tol, maxIter):
         tabla.append([n, xn, fxn, E])
         print('%-3d %-20.13f %-20.13f %-20.13f' % tuple(tabla[-1]))
     
-    return tabla
-
+    return tabla, plot_path
 
 def regla_falsa_view(request):
     if request.method == 'POST':
@@ -57,12 +72,15 @@ def regla_falsa_view(request):
         # Obtenemos la tolerancia y el número máximo de iteraciones
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
+        funcion_sympy = sp.sympify(funcion)
+        funcion_latex = sp.latex(funcion_sympy)
+
         
         # Llamamos a la función de la regla falsa y obtenemos la tabla de resultados
-        tabla = regla_falsa(funcion, a, b, tol, max_iter)
+        tabla, plot_path = regla_falsa(funcion_sympy, a, b, tol, max_iter)
         
         # Renderizamos la tabla de resultados en la plantilla y la devolvemos
-        return render(request, 'equations/regla_falsa.html', {'tabla': tabla})
+        return render(request, 'equations/regla_falsa.html', {'tabla': tabla, 'latex': funcion_latex, 'plot_path': plot_path})
     else:
         return render(request, 'equations/regla_falsa.html')
 

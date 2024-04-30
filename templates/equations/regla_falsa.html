@@ -1,11 +1,11 @@
-Regla falsa
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de Regla Falsa</title>
+    <title>Regla Falsa</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 
@@ -23,6 +23,10 @@ Regla falsa
 </body>
 
 <body>
+    {% if latex %} 
+    <h2>Función ingresada: \[ {{ latex }} \]</h2>
+    {% endif %}
+
     {% if tabla %}
     <h1>Resultado de Regla Falsa</h1>
     <table border="1">
@@ -40,6 +44,11 @@ Regla falsa
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
+
+    {% if plot_path %}
+    <h2>Gráfico de la función:</h2>
+    <img src="{{ plot_path }}" alt="Gráfico de la función">
     {% endif %}
 </body>
 </html>
