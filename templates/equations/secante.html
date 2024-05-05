@@ -1,1 +1,30 @@
-secante
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secante</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+
+ <body>
+    <h1>Secante</h1>
+    <form method="post">
+        {% csrf_token %}
+        Función: <input type="text" name="funcion" required><br>
+        x0: <input type="number" name="x0" step="any" required><br>
+        x1: <input type="number" name="x1" step="any" required><br>
+        Tolerancia: <input type="number" name="tol" step="any" required><br>
+        Máx. Iteraciones: <input type="number" name="max_iter" required><br>
+        <input type="submit" value="Calcular">
+    </form>
+</body>
+
+<body>
+    {% if funcion %} 
+    <h2>Función ingresada: \[ {{ funcion }} \]</h2>
+    {% endif %}
+</body>
+</html>

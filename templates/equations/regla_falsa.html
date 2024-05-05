@@ -23,8 +23,8 @@
 </body>
 
 <body>
-    {% if latex %} 
-    <h2>Función ingresada: \[ {{ latex }} \]</h2>
+    {% if funcion %} 
+    <h2>Función ingresada: \[ {{ funcion }} \]</h2>
     {% endif %}
 
     {% if tabla %}
@@ -46,9 +46,9 @@
     </table>
     {% endif %}
 
-    {% if plot_path %}
+    {% if grafica %}
     <h2>Gráfico de la función:</h2>
-    <img src="{{ plot_path }}" alt="Gráfico de la función">
+    <img src="data:image/png;base64,{{ grafica }}" alt="Gráfica">
     {% endif %}
 </body>
 </html>
