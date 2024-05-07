@@ -1,1 +1,41 @@
-lu_parcial
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorización LU Parcial</title>
+</head>
+<body>
+    <h2>Factorización LU Parcial</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="number" name="n" required>
+        <button type="submit">Generar Matriz</button>
+    </form>
+
+    {% if matriz %}
+    <h2>Matriz generada:</h2>
+    <table border="1">
+        {% for row in matriz %}
+        <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if b %}
+    <h2>Vector b generado:</h2>
+    <table border="1">
+        {% for value in b %}
+        <tr>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+</body>
+</html>

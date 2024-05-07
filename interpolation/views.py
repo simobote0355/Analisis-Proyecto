@@ -3,7 +3,6 @@ from . import metodos
 
 # Create your views here.
 def vandermonde_view(request):
-    
     if request.method == 'POST':
         puntos = {"x": [], "y": []}
         punto_str = request.POST.get('punto')
@@ -20,7 +19,6 @@ def vandermonde_view(request):
         return render(request, 'interpolation/vandermonde.html')
     
 def newton_inter_view(request):
-    
     if request.method == 'POST':
         puntos = {"x": [], "y": []}
         punto_str = request.POST.get('punto')
@@ -37,7 +35,6 @@ def newton_inter_view(request):
         return render(request, 'interpolation/newton_inter.html')
 
 def lagrange_view(request):
-    
     if request.method == 'POST':
         puntos = {"x": [], "y": []}
         punto_str = request.POST.get('punto')
