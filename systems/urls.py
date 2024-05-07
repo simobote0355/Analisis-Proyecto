@@ -7,6 +7,4 @@ urlpatterns = [
     path('gauss_total/', views.gauss_total_view, name='gauss_total'),
     path('lu_simple/', views.lu_simple_view, name='lu_simple'),
     path('lu_parcial/', views.lu_parcial_view, name='lu_parcial'),
-    path('jacobi/', views.jacobi_view, name='jacobi'),
-    path('sor/', views.sor_view, name='sor'),
 ]
