@@ -10,6 +10,8 @@ def vandermonde_view(request):
         for element in lista:
             punto=eval(element)
             x,y=punto
+            x=float(x)
+            y=float(y)
             puntos["x"].append(x)
             puntos["y"].append(y)
 
@@ -26,6 +28,8 @@ def newton_inter_view(request):
         for element in lista:
             punto=eval(element)
             x,y=punto
+            x=float(x)
+            y=float(y)
             puntos["x"].append(x)
             puntos["y"].append(y)
 
@@ -42,6 +46,8 @@ def lagrange_view(request):
         for element in lista:
             punto=eval(element)
             x,y=punto
+            x=float(x)
+            y=float(y)
             puntos["x"].append(x)
             puntos["y"].append(y)
 
