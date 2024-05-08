@@ -1,5 +1,5 @@
 import sympy as sp
-from sympy import sin, cos, log
+from sympy import sin, cos, log, sympify, Abs, diff
 import matplotlib.pyplot as plt
 import numpy as np
 from io import BytesIO
@@ -8,8 +8,41 @@ import base64
 def busquedas_incrementales(f, a, b, dx, tol, iter):
     return
 
-def biseccion(f, a, b, tol, iter):
-    return
+def biseccion(funcion, a, b, tol, max_iter):
+    tabla = {
+        "columns": ["n", "xn", "f(xn)", "e"],
+        "iterations": max_iter,
+        "results": [],
+        "errors": []
+    }
+
+    x = sp.Symbol('x')
+    Fa = funcion.subs(x, a).evalf()
+    Fb = funcion.subs(x, b).evalf()
+    if Fa * Fb >= 0:
+        tabla["errors"].append("La función no cumple con el criterio de cambio de signo en el intervalo dado.")
+        return tabla
+
+    i = 0
+    while i < max_iter:
+        xn = (a + b) / 2
+        fxn = funcion.subs(x, xn).evalf()
+        error = Abs(b - a)
+
+        tabla["results"].append([i, xn, fxn, error])
+
+        if error < tol:
+            break
+
+        Fxn = funcion.subs(x, xn).evalf()
+        if Fa * Fxn < 0:
+            b = xn
+        else:
+            a = xn
+
+        i += 1
+
+    return tabla
 
 def regla_falsa(f, a, b, Tol, iter):
     # Inicializar variables

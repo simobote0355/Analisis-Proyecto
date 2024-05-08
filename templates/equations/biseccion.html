@@ -26,5 +26,30 @@
     {% if funcion %} 
     <h2>Función ingresada: \[ {{ funcion }} \]</h2>
     {% endif %}
+
+    {% if tabla.errors %}
+        <p>{{ tabla.errors.0 }}</p>
+    {% else %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>n</th>
+                <th>xn</th>
+                <th>f(xn)</th>
+                <th>Error</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in tabla.results %}
+                <tr>
+                    <td>{{ row.0 }}</td>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.2 }}</td>
+                    <td>{{ row.3 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 </body>
 </html>

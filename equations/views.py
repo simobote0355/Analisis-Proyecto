@@ -26,9 +26,10 @@ def biseccion_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        funcion_sympy = sp.sympify(funcion_str)        
+        funcion_sympy = sp.sympify(funcion_str)
+        tabla=metodos.biseccion(funcion_sympy, a, b, tol, max_iter)       
 
-        return render(request, 'equations/biseccion.html', {'funcion': funcion_sympy})
+        return render(request, 'equations/biseccion.html', {'funcion': funcion_sympy, "tabla": tabla})
     else:
         return render(request, 'equations/biseccion.html')
         
