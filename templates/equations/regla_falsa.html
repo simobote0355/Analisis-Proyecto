@@ -23,32 +23,11 @@
 </body>
 
 <body>
-    {% if funcion %} 
-    <h2>Función ingresada: \[ {{ funcion }} \]</h2>
-    {% endif %}
-
-    {% if tabla %}
-    <h1>Resultado de Regla Falsa</h1>
-    <table border="1">
-        <tr>
-            <th>n</th>
-            <th>xn</th>
-            <th>f(xn)</th>
-            <th>E</th>
-        </tr>
-        {% for fila in tabla %}
-        <tr>
-            {% for dato in fila %}
-            <td>{{ dato }}</td>
-            {% endfor %}
-        </tr>
+    {% if datos %}
+    <h3>Datos Ingresados</h3>
+    {% for clave, valor in datos.items %}
+            <li><strong>{{ clave }}:</strong> {{ valor }}</li>
         {% endfor %}
-    </table>
-    {% endif %}
-
-    {% if grafica %}
-    <h2>Gráfico de la función:</h2>
-    <img src="data:image/png;base64,{{ grafica }}" alt="Gráfica">
-    {% endif %}
+    {% endif %}       
 </body>
 </html>

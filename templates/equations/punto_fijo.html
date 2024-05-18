@@ -23,12 +23,11 @@
 </body>
 
 <body>
-    {% if funcion_f %} 
-    <h2>Función f(x) ingresada: \[ {{ funcion_f }} \]</h2>
-    {% endif %}
-
-    {% if funcion_g %} 
-    <h2>Función g(x) ingresada: \[ {{ funcion_g }} \]</h2>
+    {% if datos %}
+    <h3>Datos Ingresados</h3>
+    {% for clave, valor in datos.items %}
+            <li><strong>{{ clave }}:</strong> {{ valor }}</li>
+        {% endfor %}
     {% endif %}
 </body>
 </html>

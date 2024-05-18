@@ -12,9 +12,9 @@ def busquedas_incrementales_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        funcion_sympy = sp.sympify(funcion_str)        
+        datos={"Función": funcion_str, "(a,b)": (a,b), "dx": dx, "tol": tol, "iter": max_iter}              
 
-        return render(request, 'equations/busquedas_incrementales.html', {'funcion': funcion_sympy})
+        return render(request, 'equations/busquedas_incrementales.html', {'datos':  datos})
     else:
         return render(request, 'equations/busquedas_incrementales.html')
 
@@ -26,10 +26,9 @@ def biseccion_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        funcion_sympy = sp.sympify(funcion_str)
-        tabla=metodos.biseccion(funcion_sympy, a, b, tol, max_iter)       
+        datos={"Función": funcion_str, "(a,b)": (a,b), "tol": tol, "iter": max_iter}      
 
-        return render(request, 'equations/biseccion.html', {'funcion': funcion_sympy, "tabla": tabla})
+        return render(request, 'equations/biseccion.html', { "datos": datos})
     else:
         return render(request, 'equations/biseccion.html')
         
@@ -41,11 +40,9 @@ def regla_falsa_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        funcion_sympy = sp.sympify(funcion_str)        
-    
-        tabla, grafica = metodos.regla_falsa(funcion_sympy, a, b, tol, max_iter)
+        datos={"Función": funcion_str, "(a,b)": (a,b), "tol": tol, "iter": max_iter}
 
-        return render(request, 'equations/regla_falsa.html', {'tabla': tabla, 'funcion': funcion_sympy, 'grafica': grafica})
+        return render(request, 'equations/regla_falsa.html', {'datos': datos})
     else:
         return render(request, 'equations/regla_falsa.html')
 
@@ -57,10 +54,9 @@ def punto_fijo_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        funcion_f_sympy = sp.sympify(funcion_f_str)  
-        funcion_g_sympy = sp.sympify(funcion_g_str)        
+        datos={"Función f(x)": funcion_f_str, "Función g(x)": funcion_g_str, "x0": x0, "tol": tol, "iter": max_iter}      
         
-        return render(request, 'equations/punto_fijo.html', {'funcion_f': funcion_f_sympy, 'funcion_g': funcion_g_sympy})
+        return render(request, 'equations/punto_fijo.html', {'datos': datos})
     else:
         return render(request, 'equations/punto_fijo.html')
 
@@ -71,11 +67,9 @@ def newton_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        x=sp.symbols('x')
-        funcion_sympy = sp.sympify(funcion_str)  
-        derivada_sympy = sp.diff(funcion_sympy,x)       
+        datos={"Función": funcion_str, "x0": x0, "tol": tol, "iter": max_iter}     
         
-        return render(request, 'equations/newton.html', {'funcion': funcion_sympy})
+        return render(request, 'equations/newton.html', {'datos': datos})
     else:
         return render(request, 'equations/newton.html')
 
@@ -87,9 +81,9 @@ def secante_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
 
-        funcion_sympy = sp.sympify(funcion_str) 
+        datos={"Función": funcion_str, "x0": x0, "x1": x1, "tol": tol, "iter": max_iter} 
 
-        return render(request, 'equations/secante.html', {'funcion': funcion_sympy})
+        return render(request, 'equations/secante.html', {'funcion': datos})
     else:
         return render(request, 'equations/secante.html')
 
@@ -100,10 +94,8 @@ def raices_multiples_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        x=sp.symbols('x')
-        funcion_sympy = sp.sympify(funcion_str)  
-        derivada_sympy = sp.diff(funcion_sympy,x)       
+        datos={"Función": funcion_str, "x0": x0, "tol": tol, "iter": max_iter}      
         
-        return render(request, 'equations/raices_multiples.html', {'funcion': funcion_sympy})
+        return render(request, 'equations/raices_multiples.html', {'datos': datos})
     else:
         return render(request, 'equations/raices_multiples.html')
