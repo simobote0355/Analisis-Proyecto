@@ -13,11 +13,21 @@
     <h1>Bisección</h1>
     <form method="post">
         {% csrf_token %}
-        Función: <input type="text" name="funcion" required><br>
-        Extremo a: <input type="number" name="a" step="any" required><br>
-        Extremo b: <input type="number" name="b" step="any" required><br>
-        Tolerancia: <input type="number" name="tol" step="any" required><br>
-        Máx. Iteraciones: <input type="number" name="max_iter" required><br>
+        <label for="funcion">Función</label><br>
+        <input type="text" name="funcion" required><br><br>
+
+        <label for="a">Extremo a</label><br>
+        <input type="number" name="a" step="any" required><br><br>
+
+        <label for="b">Extremo b</label><br>
+        <input type="number" name="b" step="any" required><br><br>
+
+        <label for="tol">Tolerancia</label><br>
+        <input type="number" name="tol" step="any" required><br><br>
+
+        <label for="max_iter">Iteraciones</label><br>
+        <input type="number" name="max_iter" required><br><br>
+        
         <input type="submit" value="Calcular">
     </form>
 </body>

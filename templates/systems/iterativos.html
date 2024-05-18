@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factorización LU Simple</title>
+    <title>Iterativos</title>
 </head>
 <body>
-    <h2>Factorización LU Simple</h2>
+    <h2>Iterativos</h2>
     <form action="" method="post">
         {% csrf_token %}
         <label for="n">Tamaño matriz</label><br>
         <input type="number" name="n" required> <br><br>
+        
+        <label for="metodo">Método</label><br>
+        <input type="number" name="metodo"> <br><br>
+        
+        Nota: Jacob=0, Gauss-Seidel=1, SOR=2 <br><br>
         <button type="submit">Generar Matriz</button>
     </form>
 
@@ -37,6 +42,15 @@
         {% endfor %}
     </table>
     {% endif %}
+
+    {% if metodo == 0 %}
+        <p>Metodo: Jacobi</p>
+    {% elif metodo == 1 %}
+        <p>Metodo: Gauss-Seidel</p>
+    {% elif metodo == 2 %}
+        <p>Metodo: SOR</p>
+    {% endif %}
+
 
 </body>
 </html>

@@ -15,10 +15,18 @@
     <h1>Raíces múltiples</h1>
     <form method="post">
         {% csrf_token %}
-        Función: <input type="text" name="funcion" required><br>
-        x0: <input type="number" name="x0" step="any" required><br>
-        Tolerancia: <input type="number" name="tol" step="any" required><br>
-        Máx. Iteraciones: <input type="number" name="max_iter" required><br>
+        <label for="funcion">Función</label><br>
+        <input type="text" name="funcion" required><br><br>
+
+        <label for="x0">x0</label><br>
+        <input type="number" name="x0" step="any" required><br><br>
+
+        <label for="tol">Tolerancia</label><br>
+        <input type="number" name="tol" step="any" required><br><br>
+
+        <label for="max_iter">Iteraciones</label><br>
+        <input type="number" name="max_iter" required><br><br>
+        
         <input type="submit" value="Calcular">
     </form>
 </body>

@@ -2,14 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Lagrange</title>
+    <title>Spline</title>
 </head>
 <body>
-    <h2>Lagrange</h2>
+    <h2>Spline</h2>
     <form method="post">
         {% csrf_token %}
         <label for="punto">Puntos (x, y)</label><br>
         <input type="text" id="punto" name="punto" placeholder="Ejemplo: (0,0)"><br><br>
+        
+        <label for="grado">Grado:</label>
+        <input type="number", name="grado", placeholder="1, 2 o 3"><br><br>
+        
         <button type="submit">Guardar</button>
     </form>
 
@@ -28,5 +32,14 @@
         {% endfor %}
     </table>
     {% endif %}
+
+    {% if grado == 0 %}
+        <p>Grado: Lineal</p>
+    {% elif grado == 1 %}
+        <p>Grado: Cuadrado</p>
+    {% elif grado == 2 %}
+        <p>Grado: Cubico</p>
+    {% endif %}
+
 </body>
 </html>

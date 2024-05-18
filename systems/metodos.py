@@ -12,3 +12,15 @@ def lu_simple(A,b):
 
 def lu_parcial(A,b):
     return
+
+def croult(A,b):
+    return
+
+def doolittle(A,b):
+    return
+
+def cholesky(A,b):
+    return
+
+def iterativos(A,b,met):
+    return

@@ -9,7 +9,8 @@
     <h2>Gauss Simple</h2>
     <form action="" method="post">
         {% csrf_token %}
-        <input type="number" name="n" required>
+        <label for="n">Tamaño matriz</label><br>
+        <input type="number" name="n" required> <br><br>
         <button type="submit">Generar Matriz</button>
     </form>
 
