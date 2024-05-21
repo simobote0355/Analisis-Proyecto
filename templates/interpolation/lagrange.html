@@ -28,5 +28,13 @@
         {% endfor %}
     </table>
     {% endif %}
+
+    {% if resultado %}
+        <h2>Coeficientes del Polinomio</h2>
+        <p>Polinomio: 
+        {% for coeficiente in resultado %}
+            {{ coeficiente }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

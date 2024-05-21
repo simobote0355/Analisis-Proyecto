@@ -16,7 +16,8 @@ def vandermonde_view(request):
             puntos["y"].append(y)
 
         coordenadas=zip(puntos["x"], puntos["y"])   
-        return render(request, 'interpolation/vandermonde.html', {'coordenadas': coordenadas})
+        resultado=metodos.vandermonde(puntos)
+        return render(request, 'interpolation/vandermonde.html', {'coordenadas': coordenadas, 'resultado': resultado})
     else:
         return render(request, 'interpolation/vandermonde.html')
     
@@ -34,7 +35,8 @@ def newton_inter_view(request):
             puntos["y"].append(y)
 
         coordenadas=zip(puntos["x"], puntos["y"])   
-        return render(request, 'interpolation/newton_inter.html', {'coordenadas': coordenadas})
+        resultado=metodos.newton_inter(puntos)
+        return render(request, 'interpolation/newton_inter.html', {'coordenadas': coordenadas, 'resultado': resultado.tolist()})
     else:
         return render(request, 'interpolation/newton_inter.html')
 
@@ -51,8 +53,9 @@ def lagrange_view(request):
             puntos["x"].append(x)
             puntos["y"].append(y)
 
-        coordenadas=zip(puntos["x"], puntos["y"])   
-        return render(request, 'interpolation/lagrange.html', {'coordenadas': coordenadas})
+        coordenadas=zip(puntos["x"], puntos["y"])
+        resultado=metodos.lagrange(puntos)
+        return render(request, 'interpolation/lagrange.html', {'coordenadas': coordenadas, 'resultado': resultado.tolist()})
     else:
         return render(request, 'interpolation/lagrange.html')
     

@@ -28,5 +28,18 @@
         {% endfor %}
     </table>
     {% endif %}
+
+    {% if resultado %}
+    <h2>Matriz D</h2>
+    <table border="1">
+        {% for row in resultado %}
+            <tr>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </body>
 </html>
