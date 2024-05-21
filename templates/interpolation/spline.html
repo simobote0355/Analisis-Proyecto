@@ -41,5 +41,17 @@
         <p>Grado: Cubico</p>
     {% endif %}
 
+    {% if resultado %}
+    <h2>Coeficientes</h2>
+    <table border="1">
+        {% for row in resultado %}
+            <tr>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </body>
 </html>

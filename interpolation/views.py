@@ -73,7 +73,8 @@ def spline_view(request):
             puntos["x"].append(x)
             puntos["y"].append(y)
 
-        coordenadas=zip(puntos["x"], puntos["y"])   
-        return render(request, 'interpolation/spline.html', {'coordenadas': coordenadas, 'grado': grado})
+        coordenadas=zip(puntos["x"], puntos["y"]) 
+        resultado=metodos.spline(puntos, grado) 
+        return render(request, 'interpolation/spline.html', {'coordenadas': coordenadas, 'grado': grado, 'resultado': resultado.tolist()})
     else:
         return render(request, 'interpolation/spline.html')
