@@ -14,7 +14,7 @@
     <form method="post">
         {% csrf_token %}
         <label for="funcion_f">Función f(x)</label><br>
-        <input type="text" name="funcion" required><br><br>
+        <input type="text" name="funcion_f" required><br><br>
 
         <label for="funcion_g">Función g(x)</label><br>
         <input type="text" name="funcion_g" required><br><br>
@@ -38,6 +38,16 @@
     {% for clave, valor in datos.items %}
             <li><strong>{{ clave }}:</strong> {{ valor }}</li>
         {% endfor %}
+    {% endif %}
+
+    {% if mensaje %}
+        <h1>Resultados del Método de Punto Fijo</h1>
+        {{ mensaje }} <br>
+        {% if tabla %}
+            <div>
+                {{ tabla|safe }}
+            </div>
+        {% endif %}
     {% endif %}
 </body>
 </html>

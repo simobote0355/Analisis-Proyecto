@@ -36,5 +36,15 @@
             <li><strong>{{ clave }}:</strong> {{ valor }}</li>
         {% endfor %}
     {% endif %}
-</body>
+
+    {% if mensaje %}
+        <h1>Resultados del Método de Newton</h1>
+        {{ mensaje }}<br>
+        {% if tabla %}
+            <div>
+                {{ tabla|safe }}
+            </div>
+        {% endif %}
+    {% endif %}
+ </body>
 </html>
