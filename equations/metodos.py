@@ -3,9 +3,6 @@ import numpy as np
 import pandas as pd
 import math
 
-def busquedas_incrementales(f, a, b, dx, tol, iter):
-    return
-
 def biseccion(f, a, b, tol, max_iter):
     # Define symbol
     x = sp.symbols('x')

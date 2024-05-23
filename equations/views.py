@@ -3,21 +3,6 @@ import sympy as sp
 from . import metodos
 
 # Create your views here.
-def busquedas_incrementales_view(request):
-    if request.method == 'POST':
-        funcion_str = request.POST.get('funcion')
-        a = float(request.POST.get('a'))
-        b = float(request.POST.get('b'))
-        dx = float(request.POST.get('dx'))
-        tol = float(request.POST.get('tol'))
-        max_iter = int(request.POST.get('max_iter'))
-        
-        datos={"Función": funcion_str, "(a,b)": (a,b), "dx": dx, "tol": tol, "iter": max_iter}              
-
-        return render(request, 'equations/busquedas_incrementales.html', {'datos':  datos})
-    else:
-        return render(request, 'equations/busquedas_incrementales.html')
-
 def biseccion_view(request):
     if request.method == 'POST':
         funcion_str = request.POST.get('funcion')
