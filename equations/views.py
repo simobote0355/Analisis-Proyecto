@@ -27,8 +27,9 @@ def regla_falsa_view(request):
         max_iter = int(request.POST.get('max_iter'))
         
         datos={"Función": funcion_str, "(a,b)": (a,b), "tol": tol, "iter": max_iter}
+        tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)
 
-        return render(request, 'equations/regla_falsa.html', {'datos': datos})
+        return render(request, 'equations/regla_falsa.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
         return render(request, 'equations/regla_falsa.html')
 

@@ -38,6 +38,16 @@
     {% for clave, valor in datos.items %}
             <li><strong>{{ clave }}:</strong> {{ valor }}</li>
         {% endfor %}
-    {% endif %}       
+    {% endif %}
+    
+    {% if mensaje %}
+        <h1>Resultados del Método de Punto Fijo</h1>
+        {{ mensaje }} <br>
+        {% if tabla %}
+            <div>
+                {{ tabla|safe }}
+            </div>
+        {% endif %}
+    {% endif %}
 </body>
 </html>

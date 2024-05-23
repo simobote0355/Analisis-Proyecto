@@ -73,8 +73,69 @@ def biseccion(f, a, b, tol, max_iter):
 
     return tabla, mensaje
 
+import sympy as sp
+import pandas as pd
+
 def regla_falsa(f, a, b, tol, iter):
-    return
+    # Initialize lists to store function values and errors
+    fn = []
+    xn = []
+    E = []
+    N = []
+
+    # Define the symbol and the function
+    x = sp.symbols('x')
+    f_expr = sp.sympify(f)
+    f = sp.lambdify(x, f_expr)
+
+    # Initial values
+    fa = f(a)
+    fb = f(b)
+    c = 0
+    Error = tol + 1
+    xn.append(a)
+    xn.append(b)
+    fn.append(fa)
+    fn.append(fb)
+    E.append(Error)
+    N.append(c)
+
+    while Error > tol and c < iter:
+        c += 1
+        x_value = b - (fb * (b - a)) / (fb - fa)
+        f_value = f(x_value)
+        fn.append(f_value)
+        xn.append(x_value)
+        Error = abs(xn[c] - xn[c - 1])
+        E.append(Error)
+        N.append(c)
+
+        if f_value == 0:
+            mensaje = f'{x_value} es raiz de f(x) en {c} iteraciones'
+            break
+        elif Error < tol:
+            mensaje = f"{x_value} es una aproximacion de un raiz de f(x) con una tolerancia {tol} en {c} iteraciones"
+            break
+        else:
+            if fa * f_value < 0:
+                b = x_value
+                fb = f_value
+            else:
+                a = x_value
+                fa = f_value
+
+    if Error > tol:
+        mensaje = f'Fracaso en {iter} iteraciones'
+
+    # Create a DataFrame to store the tabla
+    tabla = pd.DataFrame({
+        'n': N,
+        'xn': xn,
+        'f(xn)': fn,
+        'e': E
+    })
+
+    return tabla, mensaje
 
 def punto_fijo(f, g, x0, tol, iter):
     # Initialize lists to store function values and errors
