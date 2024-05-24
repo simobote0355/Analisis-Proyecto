@@ -2,13 +2,12 @@ from django.shortcuts import render
 import random
 import numpy as np
 from . import metodos
-from django.shortcuts import render
 
 # Create your views here.
 def jacobi_view(request):
     if request.method == 'POST':
         n = int(request.POST.get('n'))
-        tol = float(request.POST.get('tol'))
+        tol = int(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         norma = int(request.POST.get('norma'))
         matriz = np.random.randint(1, 100, size=(n, n))
@@ -41,3 +40,38 @@ def sor_view(request):
     else:
         return render(request, 'systems/sor.html')
     
+from django.shortcuts import render
+
+def index(request):
+    if request.method == 'POST':
+        n = int(request.POST.get('n'))
+        rango=range(n)
+        return render(request, 'systems/matrix_input.html', {'rango': rango, 'n': n})
+    return render(request, 'systems/index.html')
+
+def process_matrix(request,n):
+    n = int(request.POST.get('n'))
+    method = request.POST.get('method')
+    if request.method == 'POST':
+        
+        matrix = []
+        vector1 = []
+        vector2 = []
+        for i in range(n):
+            row = []
+            for j in range(n):
+                row.append(int(request.POST.get(f'matrix_{i}_{j}')))
+            matrix.append(row)
+            vector1.append(int(request.POST.get(f'vector1_{i}')))
+            vector2.append(int(request.POST.get(f'vector2_{i}')))
+
+        print(matrix)
+        print(vector1)
+        print(vector2)
+        if method=='jacobi':
+            print("holaaaa")
+            tabla, mensaje = metodos.jacobi(np.array(matrix), np.array(vector1), np.array(vector2), 5e-5, 100, 2)
+            return render(request, 'systems/jacobi.html', {'matriz': matrix, 'b': vector1, 'x0': vector2, 'tabla': tabla.to_html(), 'mensaje': mensaje})
+
+        #return render(request, 'systems/matrix_result.html', {'matrix': matrix, 'vector1': vector1, 'vector2': vector2})
+    return render(request, 'systems/index.html')

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingresar Valores de Matriz y Vectores</title>
+</head>
+<body>
+    <h1>Ingrese los valores para una matriz {{ rango }}x{{ rango }} y dos vectores de tamaño {{ rango }}</h1>
+    <form method="post" action="{% url 'process_matrix' n=n %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th colspan="{{ rango }}">Matriz</th>
+            </tr>
+            {% for i in rango %}
+                <tr>
+                    {% for j in rango %}
+                        <td>
+                            <input type="number" step="any" name="matrix_{{ i }}_{{ j }}" required>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>Vector 1</h2>
+        <ul>
+            {% for i in rango %}
+                <li>
+                    <input type="number" step="any" name="vector1_{{ i }}" required>
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>Vector 2</h2>
+        <ul>
+            {% for i in rango %}
+                <li>
+                    <input type="number" step="any" name="vector2_{{ i }}" required>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p>Seleccione el método de solución:</p>
+        <select name="method">
+            <option value="jacobi">Jacobi</option>
+            <option value="gauss_seidel">Gauss-Seidel</option>
+            <option value="sor">SOR (Successive Over-Relaxation)</option>
+        </select>
+    
+        <input type="hidden" name="n" value="{{ n }}">
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+

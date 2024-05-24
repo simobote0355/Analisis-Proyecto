@@ -7,22 +7,6 @@
 </head>
 <body>
     <h2>Jacobi</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="n">Tamaño matriz</label><br>
-        <input type="number" name="n" required> <br><br>
-
-        <label for="tol">Tolerancia</label><br>
-        <input type="number" name="tol" step="any" required><br><br>
-
-
-        <label for="max_iter">Iteraciones</label><br>
-        <input type="number" name="max_iter" required> <br><br>
-
-        <label for="norma">Norma</label><br>
-        <input type="number" name="norma" required> <br><br>
-        <button type="submit">Generar Matriz</button>
-    </form>
 
     {% if matriz.ndim > 0 %}
     <h2>Matriz generada:</h2>

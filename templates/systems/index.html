@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingresar Tamaño de Matriz</title>
+</head>
+<body>
+    <h1>Ingrese el tamaño de la matriz</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="n">Tamaño de la matriz (n):</label>
+        <input type="number" id="n" name="n" min="1" required>
+        
+        
+    </form>
+</body>
+</html>
