@@ -11,7 +11,7 @@ def biseccion_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"Función": funcion_str, "(a,b)": (a,b), "tol": tol, "iter": max_iter}
+        datos={"funcion": funcion_str, "a": a, "b": b, "tol": tol, "iter": max_iter}
         tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)      
 
         return render(request, 'equations/biseccion.html', {"datos": datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
@@ -26,8 +26,8 @@ def regla_falsa_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"Función": funcion_str, "(a,b)": (a,b), "tol": tol, "iter": max_iter}
-        tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)
+        datos={"funcion": funcion_str, "a": a, "b": b, "tol": tol, "max_iter": max_iter}
+        tabla, mensaje = metodos.regla_falsa(funcion_str, a, b, tol, max_iter)
 
         return render(request, 'equations/regla_falsa.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
@@ -41,7 +41,7 @@ def punto_fijo_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"Función f(x)": funcion_f_str, "Función g(x)": funcion_g_str, "x0": x0, "tol": tol, "iter": max_iter} 
+        datos={"funcion_f": funcion_f_str, "funcion_g": funcion_g_str, "x0": x0, "tol": tol, "max_iter": max_iter} 
         tabla, mensaje = metodos.punto_fijo(funcion_f_str,funcion_g_str, x0, tol, max_iter)
     
         return render(request, 'equations/punto_fijo.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
@@ -55,7 +55,7 @@ def newton_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"Función": funcion_str, "x0": x0, "tol": tol, "iter": max_iter}
+        datos={"funcion": funcion_str, "x0": x0, "tol": tol, "max_iter": max_iter}
         tabla, mensaje = metodos.newton(funcion_str, x0, tol, max_iter)
         return render(request, 'equations/newton.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
@@ -69,9 +69,10 @@ def secante_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
 
-        datos={"Función": funcion_str, "x0": x0, "x1": x1, "tol": tol, "iter": max_iter} 
-        tabla, mensaje = metodos.newton(funcion_str, x0, tol, max_iter)
-        return render(request, 'equations/secante.html', {'funcion': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
+        datos={"funcion": funcion_str, "x0": x0, "x1": x1, "tol": tol, "max_iter": max_iter}
+        
+        tabla, mensaje = metodos.secante(funcion_str, x0, x1, tol, max_iter)
+        return render(request, 'equations/secante.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
         return render(request, 'equations/secante.html')
 
@@ -82,7 +83,7 @@ def raices_multiples_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"Función": funcion_str, "x0": x0, "tol": tol, "iter": max_iter}      
+        datos={"funcion": funcion_str, "x0": x0, "tol": tol, "max_iter": max_iter}      
         
         return render(request, 'equations/raices_multiples.html', {'datos': datos})
     else:

@@ -6,48 +6,75 @@
     <title>Punto Fijo</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/equations.css' %}">
 </head>
-
-
- <body>
-    <h1>Punto Fijo</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="funcion_f">Función f(x)</label><br>
-        <input type="text" name="funcion_f" required><br><br>
-
-        <label for="funcion_g">Función g(x)</label><br>
-        <input type="text" name="funcion_g" required><br><br>
-
-        <label for="x0">x0</label><br>
-        <input type="number" name="x0" step="any" required><br><br>
-
-        <label for="tol">Tolerancia</label><br>
-        <input type="number" name="tol" step="any" required><br><br>
-
-        <label for="max_iter">Iteraciones</label><br>
-        <input type="number" name="max_iter" required><br><br>
-        
-        <input type="submit" value="Calcular">
-    </form>
-</body>
-
 <body>
-    {% if datos %}
-    <h3>Datos Ingresados</h3>
-    {% for clave, valor in datos.items %}
-            <li><strong>{{ clave }}:</strong> {{ valor }}</li>
-        {% endfor %}
-    {% endif %}
+    <h1>Punto Fijo</h1>
+    <div class="container">
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                <label for="funcion_f">Función f(x)</label>
+                <input type="text" name="funcion_f" required>
 
-    {% if mensaje %}
-        <h1>Resultados del Método de Punto Fijo</h1>
-        {{ mensaje }} <br>
-        {% if tabla %}
-            <div>
-                {{ tabla|safe }}
-            </div>
-        {% endif %}
-    {% endif %}
+                <label for="funcion_g">Función g(x)</label>
+                <input type="text" name="funcion_g" required>
+
+                <label for="x0">x0</label>
+                <input type="number" name="x0" step="any" required>
+
+                <label for="tol">Tolerancia</label>
+                <input type="number" name="tol" step="any" required>
+
+                <label for="max_iter">Iteraciones</label>
+                <input type="number" name="max_iter" required>
+
+                <input type="submit" value="Calcular">
+            </form>
+        </div>
+
+        <div class="result-container">
+            {% if datos %}
+                <div class="data-container">
+                    <h3>Datos Ingresados</h3>
+                    <table>
+                        <tr>
+                            <td>Función f(x):</td>
+                            <td>{{ datos.funcion_f }}</td>
+                        </tr>
+                        <tr>
+                            <td>Función g(x):</td>
+                            <td>{{ datos.funcion_g }}</td>
+                        </tr>
+                        <tr>
+                            <td>x0:</td>
+                            <td>{{ datos.x0 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tolerancia:</td>
+                            <td>{{ datos.tol }}</td>
+                        </tr>
+                        <tr>
+                            <td>Iteraciones:</td>
+                            <td>{{ datos.max_iter }}</td>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+            {% if mensaje %}
+                <div class="message">
+                    <h1>Resultados del Método de Punto Fijo</h1>
+                    {{ mensaje }} <br>
+                    {% if tabla %}
+                        <div>
+                            {{ tabla|safe }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

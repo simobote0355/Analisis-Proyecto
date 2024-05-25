@@ -73,8 +73,6 @@ def biseccion(f, a, b, tol, max_iter):
 
     return tabla, mensaje
 
-import sympy as sp
-import pandas as pd
 
 def regla_falsa(f, a, b, tol, iter):
     # Initialize lists to store function values and errors
@@ -93,12 +91,15 @@ def regla_falsa(f, a, b, tol, iter):
     fb = f(b)
     c = 0
     Error = tol + 1
+    
     xn.append(a)
     xn.append(b)
     fn.append(fa)
     fn.append(fb)
     E.append(Error)
+    E.append(Error)
     N.append(c)
+    N.append(c+1)
 
     while Error > tol and c < iter:
         c += 1
