@@ -2,14 +2,19 @@
 <html>
 <head>
     <title>Ingresar Valores de Matriz y Vectores</title>
+    <style>
+        #sorInput {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ingrese los valores para una matriz {{ rango }}x{{ rango }} y dos vectores de tamaño {{ rango }}</h1>
+    <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
     <form method="post" action="{% url 'process_matrix' n=n %}">
         {% csrf_token %}
         <table>
             <tr>
-                <th colspan="{{ rango }}">Matriz</th>
+                <th colspan="{{ rango|length }}">Matriz</th>
             </tr>
             {% for i in rango %}
                 <tr>
@@ -21,7 +26,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <h2>Vector 1</h2>
+        <h2>b</h2>
         <ul>
             {% for i in rango %}
                 <li>
@@ -29,7 +34,7 @@
                 </li>
             {% endfor %}
         </ul>
-        <h2>Vector 2</h2>
+        <h2>x0</h2>
         <ul>
             {% for i in rango %}
                 <li>
@@ -38,16 +43,60 @@
             {% endfor %}
         </ul>
 
-        <p>Seleccione el método de solución:</p>
-        <select name="method">
-            <option value="jacobi">Jacobi</option>
-            <option value="gauss_seidel">Gauss-Seidel</option>
-            <option value="sor">SOR (Successive Over-Relaxation)</option>
-        </select>
-    
+        <input type="radio" id="method_jacobi" name="method" value="jacobi" checked>
+        <label for="method_jacobi">Jacobi</label><br>
+        
+        <input type="radio" id="method_gauss_seidel" name="method" value="gauss_seidel">
+        <label for="method_gauss_seidel">Gauss-Seidel</label><br>
+        
+        <input type="radio" id="method_sor" name="method" value="sor">
+        <label for="method_sor">SOR (Successive Over-Relaxation)</label><br><br>
+        
+        <div id="sorInput">
+            <label for="w">w</label><br>
+            <input type="number" id="w" name="w" step="0.01" min="0" max="2"><br><br>
+        </div>
+
+        <label for="tol">Tolerancia</label><br>
+        <input type="number" name="tol" step="any" required><br><br>
+
+        <label for="max_iter">Iteraciones</label><br>
+        <input type="number" name="max_iter" required><br><br>
+
+        <label for="norma">Norma</label><br>
+        <input type="number" name="norma" required><br><br>  
+        
         <input type="hidden" name="n" value="{{ n }}">
         <button type="submit">Enviar</button>
+
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sorRadio = document.getElementById('method_sor');
+            var jacobiRadio = document.getElementById('method_jacobi');
+            var gaussSeidelRadio = document.getElementById('method_gauss_seidel');
+            var sorInput = document.getElementById('sorInput');
+            var wInput = document.getElementById('w');
+
+            function toggleSORInput() {
+                if (sorRadio.checked) {
+                    sorInput.style.display = 'block';
+                    wInput.required = true;
+                } else {
+                    sorInput.style.display = 'none';
+                    wInput.required = false;
+                }
+            }
+
+            // Add event listeners to radio buttons
+            sorRadio.addEventListener('change', toggleSORInput);
+            jacobiRadio.addEventListener('change', toggleSORInput);
+            gaussSeidelRadio.addEventListener('change', toggleSORInput);
+
+            // Initial check on page load
+            toggleSORInput();
+        });
+    </script>
 </body>
 </html>
-

@@ -7,14 +7,8 @@
 </head>
 <body>
     <h2>Gauss-Seidel</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="n">Tamaño matriz</label><br>
-        <input type="number" name="n" required> <br><br>
-        <button type="submit">Generar Matriz</button>
-    </form>
 
-    {% if matriz %}
+    {% if matriz.ndim > 0 %}
     <h2>Matriz generada:</h2>
     <table border="1">
         {% for row in matriz %}
@@ -27,7 +21,7 @@
     </table>
     {% endif %}
 
-    {% if b %}
+    {% if b.ndim > 0 %}
     <h2>Vector b generado:</h2>
     <table border="1">
         {% for value in b %}
@@ -36,6 +30,27 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
+
+    {% if x0.ndim > 0%}
+    <h2>Vector x0 generado:</h2>
+    <table border="1">
+        {% for value in x0 %}
+        <tr>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if mensaje %}
+        <h1>Resultados del Método de Gauss-Seidel</h1>
+        {{ mensaje }}<br>
+        {% if tabla %}
+            <div>
+                {{ tabla|safe }}
+            </div>
+        {% endif %}
     {% endif %}
 
 </body>
