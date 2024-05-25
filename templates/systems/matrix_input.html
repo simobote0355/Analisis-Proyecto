@@ -2,74 +2,65 @@
 <html>
 <head>
     <title>Ingresar Valores de Matriz y Vectores</title>
-    <style>
-        #sorInput {
-            display: none;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/matrix_input.css' %}">
 </head>
 <body>
-    <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
-    <form method="post" action="{% url 'process_matrix' n=n %}">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <th colspan="{{ rango|length }}">Matriz</th>
-            </tr>
-            {% for i in rango %}
+    <div class="container">
+        <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
+        <form method="post" action="{% url 'process_matrix' n=n %}" class="data-container">
+            {% csrf_token %}
+            <table>
                 <tr>
-                    {% for j in rango %}
-                        <td>
-                            <input type="number" step="any" name="matrix_{{ i }}_{{ j }}" required>
-                        </td>
-                    {% endfor %}
+                    <th colspan="{{ rango|length }}">Matriz</th>
                 </tr>
-            {% endfor %}
-        </table>
-        <h2>b</h2>
-        <ul>
+                {% for i in rango %}
+                    <tr>
+                        {% for j in rango %}
+                            <td>
+                                <input type="number" step="any" name="matrix_{{ i }}_{{ j }}" required>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <h2>b</h2>
             {% for i in rango %}
-                <li>
-                    <input type="number" step="any" name="vector1_{{ i }}" required>
-                </li>
+                <input type="number" step="any" name="vector1_{{ i }}" required><br>
             {% endfor %}
-        </ul>
-        <h2>x0</h2>
-        <ul>
+            <h2>x0</h2>
             {% for i in rango %}
-                <li>
-                    <input type="number" step="any" name="vector2_{{ i }}" required>
-                </li>
+                <input type="number" step="any" name="vector2_{{ i }}" required><br>
             {% endfor %}
-        </ul>
 
-        <input type="radio" id="method_jacobi" name="method" value="jacobi" checked>
-        <label for="method_jacobi">Jacobi</label><br>
-        
-        <input type="radio" id="method_gauss_seidel" name="method" value="gauss_seidel">
-        <label for="method_gauss_seidel">Gauss-Seidel</label><br>
-        
-        <input type="radio" id="method_sor" name="method" value="sor">
-        <label for="method_sor">SOR (Successive Over-Relaxation)</label><br><br>
-        
-        <div id="sorInput">
-            <label for="w">w</label><br>
-            <input type="number" id="w" name="w" step="0.01" min="0" max="2"><br><br>
-        </div>
+            <input type="radio" id="method_jacobi" name="method" value="jacobi" checked>
+            <label for="method_jacobi">Jacobi</label><br>
+            
+            <input type="radio" id="method_gauss_seidel" name="method" value="gauss_seidel">
+            <label for="method_gauss_seidel">Gauss-Seidel</label><br>
+            
+            <input type="radio" id="method_sor" name="method" value="sor">
+            <label for="method_sor">SOR (Successive Over-Relaxation)</label><br><br>
+            
+            <div id="sorInput" class="data-container">
+                <label for="w">w</label><br>
+                <input type="number" id="w" name="w" step="0.01" min="0" max="2"><br><br>
+            </div>
 
-        <label for="tol">Tolerancia</label><br>
-        <input type="number" name="tol" step="any" required><br><br>
+            <label for="tol">Tolerancia</label><br>
+            <input type="number" name="tol" step="any" required><br><br>
 
-        <label for="max_iter">Iteraciones</label><br>
-        <input type="number" name="max_iter" required><br><br>
+            <label for="max_iter">Iteraciones</label><br>
+            <input type="number" name="max_iter" required><br><br>
 
-        <label for="norma">Norma</label><br>
-        <input type="number" name="norma" required><br><br>  
-        
-        <input type="hidden" name="n" value="{{ n }}">
-        <button type="submit">Enviar</button>
+            <label for="norma">Norma</label><br>
+            <input type="number" name="norma" required><br><br>  
+            
+            <input type="hidden" name="n" value="{{ n }}">
+            <button type="submit">Enviar</button>
 
-    </form>
+        </form>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

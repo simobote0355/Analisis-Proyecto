@@ -2,15 +2,20 @@
 <html>
 <head>
     <title>Ingresar Tamaño de Matriz</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
 </head>
 <body>
-    <h1>Ingrese el tamaño de la matriz</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="n">Tamaño de la matriz (n):</label>
-        <input type="number" id="n" name="n" min="1" required>
-        
-        
-    </form>
+    <div class="container">
+        <h1>Ingresar Tamaño de Matriz</h1>
+        <div class="data-container">
+            <form method="post">
+                {% csrf_token %}
+                <label for="n">Tamaño de la matriz (n):</label>
+                <input type="number" id="n" name="n" min="1" required>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -37,7 +37,7 @@ def process_matrix(request,n):
 
         if method=='gauss_seidel':
             tabla, mensaje, radio = metodos.gauss_seidel(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
-            return render(request, 'systems/gauss_seidel.html', {'matriz': matrix, 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
+            return render(request, 'systems/gauss_seidel.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
 
         if method=='sor':
             tabla, mensaje, radio = metodos.sor(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma, w)

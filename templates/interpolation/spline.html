@@ -3,55 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Spline</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
 </head>
 <body>
-    <h2>Spline</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="punto">Puntos (x, y)</label><br>
-        <input type="text" id="punto" name="punto" placeholder="Ejemplo: (0,0)"><br><br>
-        
-        <label for="grado">Grado:</label>
-        <input type="number", name="grado", placeholder="1, 2 o 3"><br><br>
-        
-        <button type="submit">Guardar</button>
-    </form>
+    <div class="container">
+        <h1>Spline</h1>
+        <div class="data-container">
+            <form method="post" class="data-form">
+                {% csrf_token %}
+                <label for="punto">Puntos (x, y)</label><br>
+                <input type="text" id="punto" name="punto" placeholder="Ejemplo: (0,0)"><br><br>
+                
+                <label for="grado">Grado:</label>
+                <input type="number" name="grado" placeholder="1, 2 o 3"><br><br>
+                
+                <input type="submit" value="Guardar">
+            </form>
+        </div>
 
-    {% if coordenadas %}
-    <h2>Puntos Ingresados</h2>
-    <table border="1">
-        <tr>
-            <th>Coordenada X</th>
-            <th>Coordenada Y</th>
-        </tr>
-        {% for x, y in coordenadas %}
-        <tr>
-            <td>{{ x }}</td>
-            <td>{{ y }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-
-    {% if grado == 0 %}
-        <p>Grado: Lineal</p>
-    {% elif grado == 1 %}
-        <p>Grado: Cuadrado</p>
-    {% elif grado == 2 %}
-        <p>Grado: Cubico</p>
-    {% endif %}
-
-    {% if resultado %}
-    <h2>Coeficientes</h2>
-    <table border="1">
-        {% for row in resultado %}
-            <tr>
-                {% for value in row %}
-                    <td>{{ value }}</td>
+        {% if coordenadas %}
+        <div class="result-container">
+            <h2>Puntos Ingresados</h2>
+            <table>
+                <tr>
+                    <th>Coordenada X</th>
+                    <th>Coordenada Y</th>
+                </tr>
+                {% for x, y in coordenadas %}
+                <tr>
+                    <td>{{ x }}</td>
+                    <td>{{ y }}</td>
+                </tr>
                 {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
+            </table>
+        </div>
+        {% endif %}
+
+        {% if resultado %}
+        <div class="result-container">
+            <h2>Coeficientes</h2>
+            <table>
+                {% for row in resultado %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>

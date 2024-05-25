@@ -3,37 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Vandermonde</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
 </head>
 <body>
-    <h2>Vandermonde</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="punto">Puntos (x, y)</label><br>
-        <input type="text" id="punto" name="punto" placeholder="Ejemplo: (0,0)"><br><br>
-        <button type="submit">Guardar</button>
-    </form>
+    <div class="container">
+        <h1>Vandermonde</h1>
+        <div class="data-container">
+            <form method="post" class="data-form">
+                {% csrf_token %}
+                <label for="punto">Puntos (x, y)</label><br>
+                <input type="text" id="punto" name="punto" placeholder="Ejemplo: (0,0)"><br><br>
+                <input type="submit" value="Guardar">
+            </form>
+        </div>
 
-    {% if coordenadas %}
-    <h2>Puntos Ingresados</h2>
-    <table border="1">
-        <tr>
-            <th>Coordenada X</th>
-            <th>Coordenada Y</th>
-        </tr>
-        {% for x, y in coordenadas %}
-        <tr>
-            <td>{{ x }}</td>
-            <td>{{ y }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
+        {% if coordenadas %}
+        <div class="result-container">
+            <h3>Tabla de Puntos Ingresados</h3>
+            <table>
+                <tr>
+                    <th>Coordenada X</th>
+                    <th>Coordenada Y</th>
+                </tr>
+                {% for x, y in coordenadas %}
+                <tr>
+                    <td>{{ x }}</td>
+                    <td>{{ y }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
 
-    <br>
-    {% if resultado %}
-    <h3>Polinomio de Interpolación</h3>
-    {{ resultado }}
-    {% endif %}
+        <br>
 
+        {% if resultado %}
+        <div class="result-container">
+            <h3>Polinomio de Interpolación</h3>
+            {{ resultado }}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
