@@ -37,13 +37,10 @@
         </div>
         {% endif %}
 
-        {% if resultado %}
+        {% if pol %}
         <div class="result-container">
-            <h2>Coeficientes del Polinomio</h2>
-            {% for coeficiente in resultado %}
-                {{ coeficiente }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            </p>
+            <h2>Polinomio</h2>
+             {{ pol }}
         </div>
         {% endif %}
     </div>

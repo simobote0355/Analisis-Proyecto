@@ -1,5 +1,6 @@
 import sympy as sp
 import numpy as np
+import pandas as pd
 from scipy.linalg import solve
 
 def vandermonde(puntos):
@@ -20,38 +21,53 @@ def newton_inter(puntos):
     y = np.array(puntos['y'])
     n = x.size
 
-    D = np.zeros((n, n + 1))
-    D[:, 0] = x 
-    D[:, 1] = y.T
+    D = np.zeros((n, n + 2))
+    D[:, 0] = np.arange(1, n + 1)  # Columna n
+    D[:, 1] = x  # Columna xi
+    D[:, 2] = y  # Columna yi
 
     for i in range(1, n):
-        aux0 = D[i - 1:n, i]
+        aux0 = D[i - 1:n, i + 1]
         aux = np.diff(aux0)
         aux2 = x[i:n] - x[0:n - i]
-        D[i:n, i + 1] = aux / aux2.T
-        
-    return D
+        D[i:n, i + 2] = aux / aux2.T
+
+    columns = ['n', 'xi', 'yi'] + [i for i in range(1, n)]
+    df = pd.DataFrame(D, columns=columns)
+
+    new_x = sp.Symbol('x')
+    m = len(df)
+    polynomial = df.iloc[0, 2]  # Primer término del polinomio
+    
+    for i in range(1, m):
+        term = df.iloc[i, i + 2]  # Coeficiente de cada término
+        for j in range(i):
+            term *= (new_x - df.iloc[j, 1])  # (x - x0)(x - x1)...(x - xi)
+        polynomial += term
+    
+    return df, sp.simplify(polynomial)
 
 def lagrange(puntos):
     x = puntos['x']
     y = puntos['y']
     
     n = len(x)
-    Tabla = np.zeros((n, n))
-    pol = np.zeros_like(x)
+    polinomio = 0
 
     for i in range(n):
         Li = 1
         den = 1
         for j in range(n):
             if j != i:
-                paux = np.poly1d([1, -x[j]])
-                Li *= paux
+                Li *= (sp.Symbol('x') - x[j]) / (x[i] - x[j])
                 den *= (x[i] - x[j])
-        Tabla[i, :] = y[i] * Li / den
-        pol = pol.astype(float) + Tabla[i, :]
+        polinomio += y[i] * Li
 
-    return pol
+    return sp.simplify(polinomio)
+
+import numpy as np
+import sympy as sp
+from numpy.linalg import solve
 
 def spline(puntos, grado):
     x = np.array(puntos['x'])
@@ -166,6 +182,13 @@ def spline(puntos, grado):
         b[h] = 0
     
     val = solve(A, b)
-    tabla = val.reshape((n - 1, grado + 1))
+    polinomios = []
+    intervalos = []
+    x_sym = sp.Symbol('x')
+    for i in range(n - 1):
+        coeficientes = val[i * (grado + 1):(i + 1) * (grado + 1)]
+        polinomio = sum(coef * x_sym**(grado - j) for j, coef in enumerate(coeficientes))
+        polinomios.append(polinomio)
+        intervalos.append((x[i], x[i + 1]))
     
-    return tabla
+    return polinomios, intervalos

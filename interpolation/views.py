@@ -1,5 +1,6 @@
 from django.shortcuts import render 
 from . import metodos
+import sympy as sp
 
 # Create your views here.
 def vandermonde_view(request):
@@ -35,8 +36,8 @@ def newton_inter_view(request):
             puntos["y"].append(y)
 
         coordenadas=zip(puntos["x"], puntos["y"])   
-        resultado=metodos.newton_inter(puntos)
-        return render(request, 'interpolation/newton_inter.html', {'coordenadas': coordenadas, 'resultado': resultado.tolist()})
+        tabla, pol=metodos.newton_inter(puntos)
+        return render(request, 'interpolation/newton_inter.html', {'coordenadas': coordenadas, 'tabla': tabla.to_html(), 'pol': pol})
     else:
         return render(request, 'interpolation/newton_inter.html')
 
@@ -54,8 +55,8 @@ def lagrange_view(request):
             puntos["y"].append(y)
 
         coordenadas=zip(puntos["x"], puntos["y"])
-        resultado=metodos.lagrange(puntos)
-        return render(request, 'interpolation/lagrange.html', {'coordenadas': coordenadas, 'resultado': resultado.tolist()})
+        pol=metodos.lagrange(puntos)
+        return render(request, 'interpolation/lagrange.html', {'coordenadas': coordenadas, 'pol': pol})
     else:
         return render(request, 'interpolation/lagrange.html')
     
@@ -74,7 +75,8 @@ def spline_view(request):
             puntos["y"].append(y)
 
         coordenadas=zip(puntos["x"], puntos["y"]) 
-        resultado=metodos.spline(puntos, grado) 
-        return render(request, 'interpolation/spline.html', {'coordenadas': coordenadas, 'resultado': resultado.tolist()})
+        pols, intervalos =metodos.spline(puntos, grado) 
+        datos=zip(pols,intervalos)
+        return render(request, 'interpolation/spline.html', {'coordenadas': coordenadas, 'datos': datos})
     else:
         return render(request, 'interpolation/spline.html')

@@ -37,18 +37,17 @@
         </div>
         {% endif %}
 
-        {% if resultado %}
+        {% if tabla %}
         <div class="result-container">
             <h2>Matriz D</h2>
-            <table>
-                {% for row in resultado %}
-                    <tr>
-                        {% for value in row %}
-                            <td>{{ value }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
+                {{ tabla|safe }}
+        </div>
+        {% endif %}
+
+        {% if pol %}
+        <div class="result-container">
+            <h2>Polinomio</h2>
+             {{ pol }}
         </div>
         {% endif %}
     </div>

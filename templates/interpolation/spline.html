@@ -40,20 +40,22 @@
         </div>
         {% endif %}
 
-        {% if resultado %}
         <div class="result-container">
-            <h2>Coeficientes</h2>
-            <table>
-                {% for row in resultado %}
+            {% if datos %}
+            {% for polinomio, intervalo in datos %}
+                <table>
                     <tr>
-                        {% for value in row %}
-                            <td>{{ value }}</td>
-                        {% endfor %}
+                        <th>Polinomio</th>
+                        <th>Intervalo</th>
                     </tr>
-                {% endfor %}
-            </table>
+                    <tr>
+                        <td>{{ polinomio }}</td>
+                        <td>{{ intervalo.0 }} &le; x &le; {{ intervalo.1 }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 </body>
 </html>
