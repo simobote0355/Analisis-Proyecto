@@ -305,5 +305,74 @@ def secante(f, x0, x1, tol, max_iter):
 
     return tabla, mensaje
 
-def raices_multiples(f, x0, tol, iter):
-    return
+
+def raices_multiples(fx, x0, tol, niter):
+    # Initialize lists to store function values, derivatives, and errors
+    fn = []
+    xn = []
+    E = []
+    N = []
+
+    # Define the symbol and the function
+    x = sp.symbols('x')
+    f_expr = sp.sympify(fx)
+    f = sp.lambdify(x, f_expr, 'numpy')
+
+    # Calculate the derivatives symbolically
+    df_expr = sp.diff(f_expr, x)
+    d2f_expr = sp.diff(df_expr, x)
+    df = sp.lambdify(x, df_expr, 'numpy')
+    d2f = sp.lambdify(x, d2f_expr, 'numpy')
+
+    # Initial values
+    x_value = x0
+    f_value = f(x_value)
+    df_value = df(x_value)
+    d2f_value = d2f(x_value)
+    c = 0
+    Error = 100  # Start with a large error to enter the loop
+
+    fn.append(f_value)
+    xn.append(x_value)
+    E.append(Error)
+    N.append(c)
+
+    while Error > tol and f_value != 0 and df_value != 0 and c < niter:
+        # Update the current value using the modified Newton-Raphson formula
+        try:
+            x_new = x_value - (f_value * df_value) / (df_value ** 2 - f_value * d2f_value)
+        except ZeroDivisionError:
+            mensaje = 'División por cero detectada durante la iteración'
+            break
+
+        f_value = f(x_new)
+        df_value = df(x_new)
+        d2f_value = d2f(x_new)
+
+        fn.append(f_value)
+        xn.append(x_new)
+        c += 1
+        Error = abs(x_new - x_value)
+        N.append(c)
+        E.append(Error)
+
+        # Update the current value
+        x_value = x_new
+
+    # Check the result and prepare the message
+    if f_value == 0:
+        mensaje = f'{x_value} es raíz de f(x) en {c} iteraciones'
+    elif Error < tol:
+        mensaje = f"{x_value} es una aproximación de una raíz de f(x) con una tolerancia {tol} en {c} iteraciones"
+    else:
+        mensaje = f'Fracaso en {niter} iteraciones'
+
+    # Create a DataFrame to store the table
+    tabla = pd.DataFrame({
+        'n': N,
+        'xn': xn,
+        'f(xn)': fn,
+        'e': E
+    })
+
+    return tabla, mensaje

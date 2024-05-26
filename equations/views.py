@@ -83,8 +83,9 @@ def raices_multiples_view(request):
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
         
-        datos={"funcion": funcion_str, "x0": x0, "tol": tol, "max_iter": max_iter}      
+        datos={"funcion": funcion_str, "x0": x0, "tol": tol, "max_iter": max_iter}  
+        tabla, mensaje= metodos.raices_multiples(funcion_str, x0, tol, max_iter)    
         
-        return render(request, 'equations/raices_multiples.html', {'datos': datos})
+        return render(request, 'equations/raices_multiples.html', {'datos': datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
         return render(request, 'equations/raices_multiples.html')

@@ -65,10 +65,6 @@ def lagrange(puntos):
 
     return sp.simplify(polinomio)
 
-import numpy as np
-import sympy as sp
-from numpy.linalg import solve
-
 def spline(puntos, grado):
     x = np.array(puntos['x'])
     y = np.array(puntos['y'])
