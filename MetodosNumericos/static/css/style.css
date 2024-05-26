@@ -79,4 +79,6 @@ p {
     display: block;
 }
 
-
+.graficaContainer {
+    text-align: center;
+}

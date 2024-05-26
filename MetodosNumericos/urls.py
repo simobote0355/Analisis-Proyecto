@@ -20,6 +20,7 @@ from home import views as homeViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homeViews.home),
+    path('grafica/', homeViews.grafica, name='grafica'),
     path('equations/', include('equations.urls')),
     path('systems/', include('systems.urls')),
     path('interpolation/', include('interpolation.urls')),

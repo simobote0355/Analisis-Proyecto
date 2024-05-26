@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import sympy as sp
 from . import metodos
 
 # Create your views here.
@@ -10,11 +9,11 @@ def biseccion_view(request):
         b = float(request.POST.get('b'))
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
-        
-        datos={"funcion": funcion_str, "a": a, "b": b, "tol": tol, "iter": max_iter}
+      
+        datos={"funcion": funcion_str, "a": a, "b": b, "tol": tol, "max_iter": max_iter}
         tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)      
 
-        return render(request, 'equations/biseccion.html', {"datos": datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
+        return render(request, 'equations/biseccion.html', {"datos": datos, 'tabla': tabla.to_html(), 'mensaje': mensaje, 'chart': chart})
     else:
         return render(request, 'equations/biseccion.html')
         
