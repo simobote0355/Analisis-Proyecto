@@ -82,3 +82,33 @@ p {
 .graficaContainer {
     text-align: center;
 }
+
+/* Navbar styles */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Usa flexbox */
+    justify-content: center; /* Centra horizontalmente los elementos */
+}
+
+nav ul li {
+    margin: 0 10px; /* Espacio entre elementos */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+

@@ -20,7 +20,7 @@
 
         {% if coordenadas %}
         <div class="result-container">
-            <h3>Tabla de Puntos Ingresados</h3>
+            <h2>Tabla de Puntos Ingresados</h2>
             <table>
                 <tr>
                     <th>Coordenada X</th>
@@ -40,8 +40,12 @@
 
         {% if resultado %}
         <div class="result-container">
-            <h3>Polinomio de Interpolación</h3>
+            <h2>Polinomio de Interpolación</h2>
             {{ resultado }}
+
+            <br>
+            <br>
+            <a href="{% url 'grafica' %}">Graficar
         </div>
         {% endif %}
     </div>

@@ -38,10 +38,11 @@
             {% if datos %}
                 <div class="data-container">
                     <h3>Datos Ingresados</h3>
+                    
                     <table>
                         <tr>
                             <td>Función:</td>
-                            <td>{{ datos.funcion }}</td>
+                            <td>{{ datos.funcion }} <a href="{% url 'grafica' %}">Graficar</a></td>
                         </tr>
                         <tr>
                             <td>(a,b):</td>

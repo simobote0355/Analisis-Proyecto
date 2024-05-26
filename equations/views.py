@@ -11,9 +11,12 @@ def biseccion_view(request):
         max_iter = int(request.POST.get('max_iter'))
       
         datos={"funcion": funcion_str, "a": a, "b": b, "tol": tol, "max_iter": max_iter}
-        tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)      
+        tabla, mensaje = metodos.biseccion(funcion_str, a, b, tol, max_iter)   
 
-        return render(request, 'equations/biseccion.html', {"datos": datos, 'tabla': tabla.to_html(), 'mensaje': mensaje, 'chart': chart})
+        with open('registros.txt', 'a') as file:
+            file.write(mensaje)   
+
+        return render(request, 'equations/biseccion.html', {"datos": datos, 'tabla': tabla.to_html(), 'mensaje': mensaje})
     else:
         return render(request, 'equations/biseccion.html')
         
