@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import random
 import numpy as np
 from . import metodos
 
@@ -31,16 +30,44 @@ def process_matrix(request,n):
             vector1.append(int(request.POST.get(f'vector1_{i}')))
             vector2.append(int(request.POST.get(f'vector2_{i}')))
             
+        sistema=np.hstack((np.array(matrix), np.array(vector1).reshape(-1,1)))
         if method=='jacobi':
             tabla, mensaje, radio = metodos.jacobi(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
+
+            with open('systems/registros.txt', 'a') as file:
+                file.write("Jacobi")
+                file.write('\n\n')    
+                np.savetxt(file, sistema, fmt='%d', delimiter=',')
+                file.write('\n\n')
+                file.write(tabla.to_string()) 
+                file.write('\n\n\n') 
+
             return render(request, 'systems/jacobi.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
 
         if method=='gauss_seidel':
             tabla, mensaje, radio = metodos.gauss_seidel(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
+
+            with open('systems/registros.txt', 'a') as file:
+                file.write("Gauss-Seidel")
+                file.write('\n\n')    
+                np.savetxt(file, sistema, fmt='%d', delimiter=',')
+                file.write('\n\n')
+                file.write(tabla.to_string()) 
+                file.write('\n\n\n')
+
             return render(request, 'systems/gauss_seidel.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
 
         if method=='sor':
             tabla, mensaje, radio = metodos.sor(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma, w)
+
+            with open('systems/registros.txt', 'a') as file:
+                file.write("SOR")
+                file.write('\n\n')    
+                np.savetxt(file, sistema, fmt='%d', delimiter=',')
+                file.write('\n\n')
+                file.write(tabla.to_string()) 
+                file.write('\n\n\n')
+
             return render(request, 'systems/sor.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
-        #return render(request, 'systems/matrix_result.html', {'matrix': matrix, 'vector1': vector1, 'vector2': vector2})
+        
     return render(request, 'systems/index.html')
