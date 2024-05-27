@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Vandermonde</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
+
+{% block content %}
+
     <div class="container">
         <h1>Vandermonde</h1>
         <div class="data-container">
@@ -49,5 +44,5 @@
         </div>
         {% endif %}
     </div>
-</body>
-</html>
+
+{% endblock %}

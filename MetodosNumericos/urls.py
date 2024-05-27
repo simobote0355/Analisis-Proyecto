@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homeViews.home, name='home'),
     path('grafica/', homeViews.grafica, name='grafica'),
+    path('ayuda/', homeViews.ayuda, name='ayuda'),
     path('equations/', include('equations.urls')),
     path('systems/', include('systems.urls')),
     path('interpolation/', include('interpolation.urls')),

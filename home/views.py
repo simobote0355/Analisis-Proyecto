@@ -6,3 +6,6 @@ def home(request):
 
 def grafica(request):
     return render(request, 'grafica.html')
+
+def ayuda(request):
+    return render(request, 'ayuda.html')

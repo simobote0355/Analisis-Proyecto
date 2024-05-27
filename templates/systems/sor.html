@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOR</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
+
+{% block content %}
+
     <h1>SOR</h1>
 
     {% if matriz.ndim > 0 %}
@@ -40,7 +34,7 @@
 
     {% if x0.ndim > 0 %}
     <div class="container">
-        <h3>x0</h3>
+        <h3>x<sub>0</sub></h3>
         <table>
             {% for value in x0 %}
             <tr>
@@ -64,5 +58,4 @@
         </div>
     {% endif %}
 
-</body>
-</html>
+{% endblock %}

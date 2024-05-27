@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graficar</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
 
-<div class="container">
-    <h1>Graficar</h1>
+{% block content %}
 
-    <div class="graficaContainer">
-        <div id="ggb-element"></div>
-    </div>
+    <div class="container">
+        <h1>Graficar</h1>
 
-    <br>
-    <br>
+        <div class="graficaContainer">
+            <div id="ggb-element"></div>
+        </div>
+        <br>
+        <br>
+     </div>
 
-</div>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        var params = { "appName": "graphing", "width": 1050, "height": 500, "showToolBar": true, "showAlgebraInput": true, "showMenuBar": true };
+        var applet = new GGBApplet(params, true);
+        window.addEventListener("load", function () {
+            applet.inject('ggb-element');
+        });
+    </script>
 
-<script src="https://www.geogebra.org/apps/deployggb.js"></script>
-<script>
-    var params = { "appName": "graphing", "width": 1050, "height": 500, "showToolBar": true, "showAlgebraInput": true, "showMenuBar": true };
-    var applet = new GGBApplet(params, true);
-    window.addEventListener("load", function () {
-        applet.inject('ggb-element');
-    });
-</script>
-
-</body>
-</html>
+{% endblock %}

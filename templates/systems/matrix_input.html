@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ingresar Valores de Matriz y Vectores</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/matrix_input.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
+
+{% block content %}
+
     <div class="container">
         <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
         <form method="post" action="{% url 'process_matrix' n=n %}" class="data-container">
@@ -28,7 +24,7 @@
             {% for i in rango %}
                 <input type="number" step="any" name="vector1_{{ i }}" required><br>
             {% endfor %}
-            <h2>x0</h2>
+            <h2>x<sub>0</sub></h2>
             {% for i in rango %}
                 <input type="number" step="any" name="vector2_{{ i }}" required><br>
             {% endfor %}
@@ -89,5 +85,5 @@
             toggleSORInput();
         });
     </script>
-</body>
-</html>
+
+{% endblock %}

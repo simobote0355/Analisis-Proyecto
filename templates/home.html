@@ -1,45 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Métodos Numéricos</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
+
+{% block content %}
     <h1>Introducción a Métodos Numéricos</h1>
     <p>Los métodos numéricos son técnicas utilizadas para aproximar soluciones de problemas matemáticos que no pueden resolverse de manera exacta. Algunos métodos numéricos comunes incluyen:</p>
     
     <div class="container">
-        <div class="inline-block">
-            <h2>Solución de ecuaciones de una variable</h2>
-            <ul>
-                <li><a href="{% url 'biseccion' %}">Bisección</a></li>
-                <li><a href="{% url 'regla_falsa' %}">Regla falsa</a></li>
-                <li><a href="{% url 'punto_fijo' %}">Punto Fijo</a></li>
-                <li><a href="{% url 'newton' %}">Newton</a></li>
-                <li><a href="{% url 'secante' %}">Secante</a></li>
-                <li><a href="{% url 'raices_multiples' %}">Raíces múltiples</a></li>
-            </ul>
-        </div>
-        
-        <div class="inline-block">
-            <h2>Solución de sistemas de ecuaciones</h2>
-            <ul>
-                <li><a href="{% url 'index' %}">Jacobi, Gauss-Seidel o SOR</a></li>
-            </ul>
-        </div>
-        
-        <div class="inline-block">
-            <h2>Interpolación</h2>
-            <ul>
-                <li><a href="{% url 'vandermonde' %}">Vandermonde</a></li>
-                <li><a href="{% url 'newton_inter' %}">Newton</a></li>
-                <li><a href="{% url 'lagrange' %}">Lagrange</a></li>
-                <li><a href="{% url 'spline' %}">Spline</a></li>
-            </ul>
+        <div class="inline-block-container">
+            <div class="inline-block">
+                <h2>Solución de ecuaciones de una variable</h2>
+                <ul>
+                    <li><a href="{% url 'biseccion' %}">Bisección</a></li>
+                    <li><a href="{% url 'regla_falsa' %}">Regla falsa</a></li>
+                    <li><a href="{% url 'punto_fijo' %}">Punto Fijo</a></li>
+                    <li><a href="{% url 'newton' %}">Newton</a></li>
+                    <li><a href="{% url 'secante' %}">Secante</a></li>
+                    <li><a href="{% url 'raices_multiples' %}">Raíces múltiples</a></li>
+                </ul>
+            </div>
+            
+            <div class="inline-block">
+                <h2>Solución de sistemas de ecuaciones</h2>
+                <ul>
+                    <li><a href="{% url 'index' %}">Jacobi, Gauss-Seidel o SOR</a></li>
+                </ul>
+            </div>
+            
+            <div class="inline-block">
+                <h2>Interpolación</h2>
+                <ul>
+                    <li><a href="{% url 'vandermonde' %}">Vandermonde</a></li>
+                    <li><a href="{% url 'newton_inter' %}">Newton</a></li>
+                    <li><a href="{% url 'lagrange' %}">Lagrange</a></li>
+                    <li><a href="{% url 'spline' %}">Spline</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</body>
-</html>
+    
+{% endblock %}

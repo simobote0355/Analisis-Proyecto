@@ -1,0 +1,18 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Instrucciones para ingresar datos</h1>
+    <p>Para ingresar <strong>ecuaciones</strong> ten en cuenta lo siguiente:</p>
+    <p>- Ingresa seno como sin(n)</p>
+    <p>- Ingresa coseno como cos(n)</p>
+    <p>- Ingresa ln(n) como log(n)</p>
+    <p>- Ingresa x<sup>k</sup> como x**k</p>
+    <p>- Ingresa e<sup>x</sup> como exp(x)</p>
+    <p>Para <strong>sistemas de ecuaciones</strong> primero deberás ingresar el tamaño de la matriz nxn y de los vectores b y x<sub>0</sub> de tamaño 1xn. Luego ingresa los valores que quieras.</p>
+    <p>Para <strong>interpolación</strong> debes de ingresar los puntos de la siguiente manera: (x<sub>0</sub>,y<sub>0</sub>) (x<sub>1</sub>,y<sub>1</sub>) (x<sub>2</sub>,y<sub>2</sub>)....</p>
+    <p>Para ingresar el <strong>error</strong>, puedes hacerlo así: 5e<sup>-5</sup></p>
+</div>
+
+{% endblock %}

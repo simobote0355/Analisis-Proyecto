@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ingresar Tamaño de Matriz</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/resultados.css' %}">
-</head>
-<body>
+{% extends "navbar.html" %}
+
+{% block content %}
     <div class="container">
         <h1>Ingresar Tamaño de Matriz</h1>
         <div class="data-container">
@@ -17,5 +12,5 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}
