@@ -16,8 +16,13 @@ def process_matrix(request,n):
         method = request.POST.get('method')
         tol = float(request.POST.get('tol'))
         max_iter = int(request.POST.get('max_iter'))
-        norma = int(request.POST.get('norma'))
+        norma = request.POST.get('norma')
         w = float(request.POST.get('w')) if method == 'sor' else None
+        
+        if norma=='∞':
+            norma=float('inf')
+        else:
+            norma=int(norma)
 
         matrix = []
         vector1 = []

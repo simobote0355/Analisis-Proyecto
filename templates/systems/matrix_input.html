@@ -2,88 +2,95 @@
 
 {% block content %}
 
-    <div class="container">
-        <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
-        <form method="post" action="{% url 'process_matrix' n=n %}" class="data-container">
-            {% csrf_token %}
-            <table>
+<div class="container">
+    <h1>Ingrese los valores para una matriz {{ n }}x{{ n }} y dos vectores de tamaño 1x{{ n }}</h1>
+    <form method="post" action="{% url 'process_matrix' n=n %}" class="data-container">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th colspan="{{ rango|length }}">Matriz</th>
+            </tr>
+            {% for i in rango %}
                 <tr>
-                    <th colspan="{{ rango|length }}">Matriz</th>
+                    {% for j in rango %}
+                        <td>
+                            <input type="number" step="any" name="matrix_{{ i }}_{{ j }}" required>
+                        </td>
+                    {% endfor %}
                 </tr>
-                {% for i in rango %}
-                    <tr>
-                        {% for j in rango %}
-                            <td>
-                                <input type="number" step="any" name="matrix_{{ i }}_{{ j }}" required>
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
-            <h2>b</h2>
-            {% for i in rango %}
-                <input type="number" step="any" name="vector1_{{ i }}" required><br>
             {% endfor %}
-            <h2>x<sub>0</sub></h2>
-            {% for i in rango %}
-                <input type="number" step="any" name="vector2_{{ i }}" required><br>
-            {% endfor %}
+        </table>
+        <h2>b</h2>
+        {% for i in rango %}
+            <input type="number" step="any" name="vector1_{{ i }}" required><br>
+        {% endfor %}
+        <h2>x<sub>0</sub></h2>
+        {% for i in rango %}
+            <input type="number" step="any" name="vector2_{{ i }}" required><br>
+        {% endfor %}
 
-            <input type="radio" id="method_jacobi" name="method" value="jacobi" checked>
-            <label for="method_jacobi">Jacobi</label><br>
-            
-            <input type="radio" id="method_gauss_seidel" name="method" value="gauss_seidel">
-            <label for="method_gauss_seidel">Gauss-Seidel</label><br>
-            
-            <input type="radio" id="method_sor" name="method" value="sor">
-            <label for="method_sor">SOR</label><br><br>
-            
-            <div id="sorInput" class="data-container">
-                <label for="w">w</label><br>
-                <input type="number" id="w" name="w" step="0.01" min="0" max="2"><br><br>
-            </div>
+        <input type="radio" id="method_jacobi" name="method" value="jacobi" checked>
+        <label for="method_jacobi">Jacobi</label><br>
 
-            <label for="tol">Tolerancia</label><br>
-            <input type="number" name="tol" step="any" required><br><br>
+        <input type="radio" id="method_gauss_seidel" name="method" value="gauss_seidel">
+        <label for="method_gauss_seidel">Gauss-Seidel</label><br>
 
-            <label for="max_iter">Iteraciones</label><br>
-            <input type="number" name="max_iter" required><br><br>
+        <input type="radio" id="method_sor" name="method" value="sor">
+        <label for="method_sor">SOR</label><br><br>
 
-            <label for="norma">Norma</label><br>
-            <input type="number" name="norma" required><br><br>  
-            
-            <input type="hidden" name="n" value="{{ n }}">
-            <button type="submit">Enviar</button>
+        <div id="sorInput" class="data-container">
+            <label for="w">w</label><br>
+            <input type="number" id="w" name="w" step="0.01" min="0" max="2"><br><br>
+        </div>
 
-        </form>
-    </div>
+        <label for="tol">Tolerancia</label><br>
+        <input type="number" name="tol" step="any" required><br><br>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var sorRadio = document.getElementById('method_sor');
-            var jacobiRadio = document.getElementById('method_jacobi');
-            var gaussSeidelRadio = document.getElementById('method_gauss_seidel');
-            var sorInput = document.getElementById('sorInput');
-            var wInput = document.getElementById('w');
+        <label for="max_iter">Iteraciones</label><br>
+        <input type="number" name="max_iter" required><br><br>
 
-            function toggleSORInput() {
-                if (sorRadio.checked) {
-                    sorInput.style.display = 'block';
-                    wInput.required = true;
-                } else {
-                    sorInput.style.display = 'none';
-                    wInput.required = false;
-                }
+        <label for="norma">Norma</label><br>
+        <select name="norma" id="norma" required>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="∞">∞ (Infinito)</option>
+        </select><br><br> 
+
+        <input type="hidden" name="n" value="{{ n }}">
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var sorRadio = document.getElementById('method_sor');
+        var jacobiRadio = document.getElementById('method_jacobi');
+        var gaussSeidelRadio = document.getElementById('method_gauss_seidel');
+        var sorInput = document.getElementById('sorInput');
+        var wInput = document.getElementById('w');
+
+        function toggleSORInput() {
+            if (sorRadio.checked) {
+                sorInput.style.display = 'block';
+                wInput.required = true;
+            } else {
+                sorInput.style.display = 'none';
+                wInput.required = false;
             }
+        }
 
-            // Add event listeners to radio buttons
-            sorRadio.addEventListener('change', toggleSORInput);
-            jacobiRadio.addEventListener('change', toggleSORInput);
-            gaussSeidelRadio.addEventListener('change', toggleSORInput);
+        // Add event listeners to radio buttons
+        sorRadio.addEventListener('change', toggleSORInput);
+        jacobiRadio.addEventListener('change', toggleSORInput);
+        gaussSeidelRadio.addEventListener('change', toggleSORInput);
 
-            // Initial check on page load
-            toggleSORInput();
-        });
-    </script>
+        // Initial check on page load
+        toggleSORInput();
+    });
+</script>
 
 {% endblock %}
