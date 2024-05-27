@@ -37,7 +37,7 @@ def process_matrix(request,n):
             
         sistema=np.hstack((np.array(matrix), np.array(vector1).reshape(-1,1)))
         if method=='jacobi':
-            tabla, mensaje, radio = metodos.jacobi(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
+            tabla, mensaje, radio, t, c = metodos.jacobi(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
 
             with open('systems/registros.txt', 'a') as file:
                 file.write("Jacobi")
@@ -47,10 +47,10 @@ def process_matrix(request,n):
                 file.write(tabla.to_string()) 
                 file.write('\n\n\n') 
 
-            return render(request, 'systems/jacobi.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
+            return render(request, 'systems/jacobi.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio, 't': t, 'c': c})
 
         if method=='gauss_seidel':
-            tabla, mensaje, radio = metodos.gauss_seidel(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
+            tabla, mensaje, radio, t, c = metodos.gauss_seidel(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma)
 
             with open('systems/registros.txt', 'a') as file:
                 file.write("Gauss-Seidel")
@@ -60,10 +60,10 @@ def process_matrix(request,n):
                 file.write(tabla.to_string()) 
                 file.write('\n\n\n')
 
-            return render(request, 'systems/gauss_seidel.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
+            return render(request, 'systems/gauss_seidel.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio, 't': t, 'c': c})
 
         if method=='sor':
-            tabla, mensaje, radio = metodos.sor(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma, w)
+            tabla, mensaje, radio, t, c = metodos.sor(np.array(matrix), np.array(vector1), np.array(vector2), tol, max_iter, norma, w)
 
             with open('systems/registros.txt', 'a') as file:
                 file.write("SOR")
@@ -73,6 +73,6 @@ def process_matrix(request,n):
                 file.write(tabla.to_string()) 
                 file.write('\n\n\n')
 
-            return render(request, 'systems/sor.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio})
+            return render(request, 'systems/sor.html', {'matriz': np.array(matrix), 'b': np.array(vector1), 'x0': np.array(vector2), 'tabla': tabla.to_html(), 'mensaje': mensaje, "radio": radio, 't': t, 'c': c})
         
     return render(request, 'systems/index.html')

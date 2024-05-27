@@ -39,7 +39,7 @@ def jacobi(a, b, x0, tol, iter_max, norma):
                                'Error': errores,
                                'Solución': soluciones})
     
-    return tabla, mensaje, radio
+    return tabla, mensaje, radio, t, c
 
 def gauss_seidel(a, b, x0, tol, iter_max, norma):
     diagonal = np.diag(np.diag(a))
@@ -79,7 +79,7 @@ def gauss_seidel(a, b, x0, tol, iter_max, norma):
                                'Error': errores,
                                'Solución': soluciones})
     
-    return tabla, mensaje, radio
+    return tabla, mensaje, radio, t, c
 
 def sor(a, b, x0, tol, iter_max, norma, w):
     if w==1:
@@ -124,5 +124,5 @@ def sor(a, b, x0, tol, iter_max, norma, w):
                                 'Error': errores,
                                 'Solución': soluciones})
         
-        return tabla, mensaje, radio
+        return tabla, mensaje, radio, t,c
 

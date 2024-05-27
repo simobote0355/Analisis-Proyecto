@@ -45,6 +45,34 @@
     </div>
     {% endif %}
 
+    {% if t.ndim > 0 %}
+    <div class="container">
+        <h3>T</h3>
+        <table>
+            {% for row in t %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+    {% if c.ndim > 0 %}
+    <div class="container">
+        <h3>C</h3>
+        <table>
+            {% for value in c %}
+            <tr>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
     {% if mensaje %}
         <div class="result-container">
             <h1>Resultados del Método de Jacobi</h1>

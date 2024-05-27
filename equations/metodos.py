@@ -1,5 +1,4 @@
 import sympy as sp
-import numpy as np
 import pandas as pd
 
 def biseccion(f, a, b, tol, max_iter):
