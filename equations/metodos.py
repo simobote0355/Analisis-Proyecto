@@ -94,10 +94,10 @@ def regla_falsa(f, a, b, tol, iter):
     xn.append(b)
     fn.append(fa)
     fn.append(fb)
-    E.append(Error)
-    E.append(Error)
+    E.append(None)  # No error for the first point
+    E.append(None)  # No error for the second point
     N.append(c)
-    N.append(c+1)
+    N.append(c + 1)
 
     while Error > tol and c < iter:
         c += 1
@@ -105,15 +105,16 @@ def regla_falsa(f, a, b, tol, iter):
         f_value = f(x_value)
         fn.append(f_value)
         xn.append(x_value)
-        Error = abs(xn[c] - xn[c - 1])
+        
+        Error = abs(x_value - xn[-2])
         E.append(Error)
-        N.append(c)
+        N.append(c + 1)
 
         if f_value == 0:
-            mensaje = f'{x_value} es raiz de f(x) en {c} iteraciones'
+            mensaje = f'{x_value} es raíz de f(x) en {c} iteraciones'
             break
         elif Error < tol:
-            mensaje = f"{x_value} es una aproximacion de un raiz de f(x) con una tolerancia {tol} en {c} iteraciones"
+            mensaje = f"{x_value} es una aproximación de una raíz de f(x) con una tolerancia {tol} en {c+1} iteraciones"
             break
         else:
             if fa * f_value < 0:
@@ -126,7 +127,7 @@ def regla_falsa(f, a, b, tol, iter):
     if Error > tol:
         mensaje = f'Fracaso en {iter} iteraciones'
 
-    # Create a DataFrame to store the tabla
+    # Create a DataFrame to store the table
     tabla = pd.DataFrame({
         'n': N,
         'xn': xn,
@@ -135,6 +136,7 @@ def regla_falsa(f, a, b, tol, iter):
     })
 
     return tabla, mensaje
+
 
 def punto_fijo(f, g, x0, tol, iter):
     # Initialize lists to store function values and errors
@@ -157,7 +159,7 @@ def punto_fijo(f, g, x0, tol, iter):
     Error = 100
     fn.append(f_value)
     xn.append(x_value)
-    E.append(Error)
+    E.append(None)
     N.append(c)
 
     # Fixed-point iteration loop
@@ -214,7 +216,7 @@ def newton(f, x0, tol, iter):
     Error = 100
     fn.append(f_value)
     xn.append(x_value)
-    E.append(Error)
+    E.append(None)
     N.append(c)
 
     while Error > tol and f_value != 0 and derivada != 0 and c < iter:
@@ -332,7 +334,7 @@ def raices_multiples(fx, x0, tol, niter):
 
     fn.append(f_value)
     xn.append(x_value)
-    E.append(Error)
+    E.append(None)
     N.append(c)
 
     while Error > tol and f_value != 0 and df_value != 0 and c < niter:
