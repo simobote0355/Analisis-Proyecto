@@ -360,12 +360,12 @@ def raices_multiples(fx, x0, tol, niter):
         x_value = x_new
 
     # Check the result and prepare the message
-    if f_value == 0:
-        mensaje = f'{x_value} es raíz de f(x) en {c} iteraciones'
-    elif Error < tol:
-        mensaje = f"{x_value} es una aproximación de una raíz de f(x) con una tolerancia {tol} en {c} iteraciones"
-    else:
-        mensaje = f'Fracaso en {niter} iteraciones'
+        if f_value == 0:
+            mensaje = f'{x_value} es raíz de f(x) en {c} iteraciones'
+        elif Error < tol:
+            mensaje = f"{x_value} es una aproximación de una raíz de f(x) con una tolerancia {tol} en {c} iteraciones"
+        else:
+            mensaje = f'Fracaso en {niter} iteraciones'
 
     # Create a DataFrame to store the table
     tabla = pd.DataFrame({
