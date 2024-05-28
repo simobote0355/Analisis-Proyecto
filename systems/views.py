@@ -30,10 +30,10 @@ def process_matrix(request,n):
         for i in range(n):
             row = []
             for j in range(n):
-                row.append(int(request.POST.get(f'matrix_{i}_{j}')))
+                row.append(float(request.POST.get(f'matrix_{i}_{j}')))
             matrix.append(row)
-            vector1.append(int(request.POST.get(f'vector1_{i}')))
-            vector2.append(int(request.POST.get(f'vector2_{i}')))
+            vector1.append(float(request.POST.get(f'vector1_{i}')))
+            vector2.append(float(request.POST.get(f'vector2_{i}')))
             
         sistema=np.hstack((np.array(matrix), np.array(vector1).reshape(-1,1)))
         if method=='jacobi':
