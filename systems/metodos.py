@@ -83,6 +83,7 @@ def gauss_seidel(a, b, x0, tol, iter_max, norma):
 
 def sor(a, b, x0, tol, iter_max, norma, w):
     if w==1:
+        print("Gauss-Seidel")
         return gauss_seidel(a, b, x0, tol, iter_max, norma)
     if w>1 and w<2:
         return
